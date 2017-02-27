@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  mysql:
+    image: daocloud.io/library/mysql
+    environment:
+      MYSQL_DATABASE: quiz
+      MYSQL_ROOT_PASSWORD: '123456'
+  quiz:
+    image: quiz:dev
+    volumes:
+      - /Users/gerald/Git/quiz:/usr/src/app
+    ports:
+      - '2333:2333'
+    links:
+      - mysql

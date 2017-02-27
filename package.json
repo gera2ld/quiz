@@ -1,0 +1,29 @@
+{
+  "name": "quiz",
+  "version": "0.0.0",
+  "description": "Quiz",
+  "main": "lib",
+  "scripts": {
+    "start": "node lib",
+    "dev": "nodemon --watch lib ."
+  },
+  "keywords": [
+    "quiz"
+  ],
+  "author": "Gerald <i@gerald.top>",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^1.2.5",
+    "koa-bodyparser": "^2.3.0",
+    "koa-router": "^5.4.0",
+    "mysql": "^2.13.0",
+    "nconf": "^0.8.4",
+    "nconf-yaml": "^1.0.2",
+    "node-fetch": "^1.6.3",
+    "sequelize": "^3.30.2",
+    "sequelize-cli": "^2.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

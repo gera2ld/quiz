@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>API document</title>
+  <script src="//cdn.bootcss.com/vue/2.1.10/vue.min.js"></script>
+  <script src="//cdn.bootcss.com/vue-resource/1.2.0/vue-resource.min.js"></script>
+</head>
+<body>
+  <h1>API document</h1>
+  <div id="app">
+    <ul>
+      <li v-for="item in apis">
+        <p>
+          <strong v-text="item.method"></strong>
+          <em v-text="item.path"></em>
+        </p>
+        <ul>
+          <li v-for="mid in item.middlewares">
+            <p v-html="toHTML(mid.doc)"></p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <script>
+  const store = {
+    apis: [],
+  };
+  Vue.resource('items').get().then(res => res.data).then(res => store.apis = res.data);
+  new Vue({
+    el: '#app',
+    data: store,
+    methods: {
+      toHTML(doc) {
+        return doc.replace(/[<&\n]/g, m => ({
+          '<': '&lt;',
+          '&': '&amp;',
+          '\n': '<br>',
+        }[m]));
+      },
+    },
+  });
+  </script>
+</body>
+</html>
