@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>API document</title>
-  <script src="//cdn.bootcss.com/vue/2.1.10/vue.min.js"></script>
-  <script src="//cdn.bootcss.com/vue-resource/1.2.0/vue-resource.min.js"></script>
+<meta charset="UTF-8">
+<title>API document</title>
+<script src="//cdn.bootcss.com/vue/2.1.10/vue.min.js"></script>
+<script src="//cdn.bootcss.com/vue-resource/1.2.0/vue-resource.min.js"></script>
+<script src="//cdn.bootcss.com/showdown/1.6.4/showdown.min.js"></script>
 </head>
 <body>
   <h1>API document</h1>
@@ -16,9 +17,8 @@
           <em v-text="item.path"></em>
         </p>
         <ul>
-          <li v-for="mid in item.middlewares">
-            <p v-html="toHTML(mid.doc)"></p>
-          </li>
+          <li v-for="mid in item.middlewares"
+          v-html="toHTML(mid.doc)"></li>
         </ul>
       </li>
     </ul>
@@ -27,17 +27,14 @@
   const store = {
     apis: [],
   };
+  const converter = new showdown.Converter();
   Vue.resource('items').get().then(res => res.data).then(res => store.apis = res.data);
   new Vue({
     el: '#app',
     data: store,
     methods: {
       toHTML(doc) {
-        return doc.replace(/[<&\n]/g, m => ({
-          '<': '&lt;',
-          '&': '&amp;',
-          '\n': '<br>',
-        }[m]));
+        return converter.makeHtml(doc);
       },
     },
   });
