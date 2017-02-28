@@ -13,9 +13,9 @@
   "author": "Gerald <i@gerald.top>",
   "license": "ISC",
   "dependencies": {
-    "koa": "^1.2.5",
-    "koa-bodyparser": "^2.3.0",
-    "koa-router": "^5.4.0",
+    "koa": "^2.0.1",
+    "koa-bodyparser": "^4.0.0",
+    "koa-router": "^7.0.1",
     "mysql": "^2.13.0",
     "nconf": "^0.8.4",
     "nconf-yaml": "^1.0.2",
