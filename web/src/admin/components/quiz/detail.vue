@@ -19,8 +19,20 @@
         <search-input :items="langs" @pick="onToggleLang" />
       </div>
       <div class="form-group">
-        <label>Description</label>
-        <textarea class="form-control detail-desc" v-model="quiz.description" />
+        <div class="float-right">
+          Preview
+          <a href="#" @click.prevent="onTogglePreview">
+            <i class="fa cursor-pointer" :class="`fa-toggle-${quiz.preview ? 'on' : 'off'}`"></i>
+          </a>
+        </div>
+        <label>
+          Description
+          (<a href="https://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>)
+        </label>
+        <div class="form-control-container">
+          <vue-code class="h-100" v-model="quiz.description" :options="{mode: 'markdown'}" v-show="!quiz.preview" />
+          <div class="form-control-preview h-100" v-html="quiz.descriptionHTML" v-show="quiz.preview"></div>
+        </div>
       </div>
     </div>
     <div class="card-footer">
@@ -31,13 +43,20 @@
 </template>
 
 <script>
+import VueCode from 'vue-code';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/markdown/markdown';
+import showdown from 'showdown';
 import store from 'src/services/store';
 import SearchInput from 'src/components/search-input';
 import {loadItem, updateItem} from './utils';
 import {loadList as loadLanguageList} from '../language/utils';
 
+const converter = new showdown.Converter();
+
 export default {
   components: {
+    VueCode,
     SearchInput,
   },
   data() {
@@ -58,9 +77,8 @@ export default {
   watch: {
     quizData(data) {
       this.quiz = {
-        id: data.id,
-        title: data.title,
-        description: data.description,
+        ...data,
+        preview: false,
       };
       this.checkLangs();
     },
@@ -95,9 +113,15 @@ export default {
     onToggleLang(lang) {
       lang.active = !lang.active;
     },
+    onTogglePreview() {
+      if (this.quiz.preview = !this.quiz.preview) {
+        this.quiz.descriptionHTML = converter.makeHtml(this.quiz.description);
+      }
+    },
     onOK() {
+      const {id, title, description} = this.quiz;
       const data = {
-        ...this.quiz,
+        id, title, description,
         languages: this.selectedLangs.map(item => item.data.id),
       };
       updateItem(data).then(this.onCancel);
@@ -108,3 +132,17 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.form-control-container {
+  height: 30em;
+  .CodeMirror {
+    height: 100%;
+  }
+}
+.form-control-preview {
+  padding: .5em 1em;
+  border: 1px solid #eee;
+  overflow: auto;
+}
+</style>

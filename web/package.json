@@ -11,7 +11,9 @@
   "dependencies": {
     "lodash.debounce": "^4.0.8",
     "restful-fetch": "^0.6.4",
+    "showdown": "^1.6.4",
     "vue": "^2.1.10",
+    "vue-code": "^1.2.0",
     "vue-router": "^2.2.0"
   },
   "devDependencies": {
