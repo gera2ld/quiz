@@ -48,14 +48,20 @@ export default {
     },
   },
   watch: {
-    quiz() {
-      const languages = this.quiz.languages || [];
-      this.code.language = languages[0];
-    },
+    quiz: 'update',
     'code.language'(language) {
       this.options = Object.assign({}, this.options, {
-        mode: language.value,
+        mode: language && language.value,
       });
+    },
+  },
+  created() {
+    this.update();
+  },
+  methods: {
+    update() {
+      const languages = this.quiz.languages || [];
+      this.code.language = languages[0];
     },
   },
 };
