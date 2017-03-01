@@ -62,7 +62,11 @@ export default {
   data() {
     return {
       store,
-      quiz: {},
+      quiz: {
+        title: '',
+        description: '',
+        preview: false,
+      },
       langs: [],
     };
   },
