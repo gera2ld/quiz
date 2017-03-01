@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from 'portal/components/home';
+import Quiz from 'portal/components/quiz';
+import QuizDetail from 'portal/components/quiz/detail';
+import QuizDescription from 'portal/components/quiz/description';
+import QuizSubmission from 'portal/components/quiz/submission';
 import Forbidden from 'src/components/forbidden';
 import store from 'src/services/store';
 
@@ -15,9 +18,25 @@ const router = new Router({
     },
     {
       path: '/',
-      name: 'home',
-      component: Home,
-    }
+      name: 'quiz',
+      component: Quiz,
+    },
+    {
+      path: '/quiz/:id',
+      component: QuizDetail,
+      children: [
+        {
+          path: '',
+          name: 'description',
+          component: QuizDescription,
+        },
+        {
+          path: 'submission',
+          name: 'submission',
+          component: QuizSubmission,
+        },
+      ],
+    },
   ]
 });
 
