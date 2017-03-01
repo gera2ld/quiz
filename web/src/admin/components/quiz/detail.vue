@@ -43,12 +43,10 @@
 </template>
 
 <script>
-import VueCode from 'vue-code';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/mode/markdown/markdown';
 import showdown from 'showdown';
 import store from 'src/services/store';
 import SearchInput from 'src/components/search-input';
+import VueCode from 'src/components/vue-code';
 import {loadItem, updateItem} from './utils';
 import {loadList as loadLanguageList} from '../language/utils';
 

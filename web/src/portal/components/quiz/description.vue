@@ -19,11 +19,9 @@
 </template>
 
 <script>
-import VueCode from 'vue-code';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/mode/javascript/javascript';
 import showdown from 'showdown';
 import store from 'src/services/store';
+import VueCode from 'src/components/vue-code';
 
 const converter = new showdown.Converter();
 
@@ -62,9 +60,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.code-area .CodeMirror {
-  height: 30em;
-}
-</style>
