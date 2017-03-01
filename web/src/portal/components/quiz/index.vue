@@ -4,7 +4,7 @@
       <router-link class="card" :to="`/quiz/${quiz.id}`">
         <div class="card-block">
           <h4 v-text="quiz.title"></h4>
-          <div class="badge badge-info" v-for="lang in quiz.languages" v-text="lang.title"></div>
+          <div class="badge badge-info mr-2" v-for="lang in quiz.languages" v-text="lang.title"></div>
         </div>
       </router-link>
     </div>

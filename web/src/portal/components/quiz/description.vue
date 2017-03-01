@@ -2,7 +2,7 @@
   <div>
     <h2 v-text="quiz.title"></h2>
     <div class="mb-3">
-      <div class="badge badge-info" v-for="lang in quiz.languages" v-text="lang.title"></div>
+      <div class="badge badge-info mr-2" v-for="lang in quiz.languages" v-text="lang.title"></div>
     </div>
     <div class="mb-3" v-html="description"></div>
     <div class="form-group row">
