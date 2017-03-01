@@ -14,13 +14,14 @@
       </div>
     </div>
     <vue-code class="code-area mb-3" v-model="code.value" :options="options" />
-    <button class="btn btn-primary">Submit</button>
+    <button class="btn btn-primary" @click="onSubmit">Submit</button>
   </div>
 </template>
 
 <script>
 import showdown from 'showdown';
 import store from 'src/services/store';
+import {Me} from 'src/services/restful';
 import VueCode from 'src/components/vue-code';
 
 const converter = new showdown.Converter();
@@ -62,6 +63,17 @@ export default {
     update() {
       const languages = this.quiz.languages || [];
       this.code.language = languages[0];
+    },
+    onSubmit() {
+      const data = {
+        code: this.code.value,
+        languageId: this.code.language.id,
+      };
+      const {id} = this.$route.params;
+      Me.Quiz.model(id).post('solutions', data)
+      .then(solution => {
+        this.$router.push(`/quiz/${id}/submission`);
+      });
     },
   },
 };

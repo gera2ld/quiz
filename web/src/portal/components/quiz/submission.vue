@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card" v-for="solution in solutions">
+    <div class="card mb-3" v-for="solution in solutions">
       <div class="card-header">
         Submitted at {{formatTime(solution.createdAt)}}
         <div class="badge badge-info" v-text="solution.language.title"></div>
