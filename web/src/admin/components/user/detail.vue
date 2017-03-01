@@ -138,7 +138,7 @@ export default {
     initPerm(value) {
       return {
         title: value,
-        search: value.toLowerCase(),
+        search: value.toString().toLowerCase(),
       };
     },
     onAddPerm(perm) {
@@ -176,7 +176,7 @@ export default {
     onOK() {
       updateItem({
         id: this.$route.params.id,
-        permissions: this.permissions.data,
+        permissions: this.permissions.data.map(item => item.title),
       })
       .then(this.onCancel);
     },
