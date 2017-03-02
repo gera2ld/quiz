@@ -56,7 +56,13 @@
   overflow-y: auto;
 }
 
-.code-area .CodeMirror {
+.CodeMirror {
   font-family: Courier New, Courier, monospace;
-  height: 30em;
+
+  .code-area & {
+    height: 30em;
+  }
+  .code-area-auto & {
+    height: auto;
+  }
 }

@@ -4,14 +4,14 @@
       <p>No submission yet.</p>
       <router-link class="btn btn-primary" :to="`/quiz/${$route.params.id}`">Submit a solution</router-link>
     </div>
-    <div class="card mb-3" v-for="solution in solutions">
-      <div class="card-header">
+    <div class="card mb-3" v-for="(solution, index) in solutions">
+      <div class="card-header" @click="onToggle(solution, index)">
         Submitted at {{formatTime(solution.createdAt)}}
         <div class="badge badge-info" v-text="solution.language.title"></div>
       </div>
-      <div class="card-body">
-        <vue-code class="code-area" :value="solution.code" :options="getOptions(solution)" />
-      </div>
+      <vue-code class="code-area-auto collapse" :class="{show: solution.show}"
+      ref="code"
+      :value="solution.code" :options="getOptions(solution)" />
     </div>
   </div>
 </template>
@@ -32,7 +32,10 @@ export default {
   created() {
     const {id} = this.$route.params;
     Me.Quiz.model(id).get('solutions').then(data => {
-      this.solutions = data.reverse();
+      this.solutions = data.reverse().map((item, index) => ({
+        ...item,
+        show: !index,
+      }));
     });
   },
   methods: {
@@ -45,6 +48,14 @@ export default {
         mode: solution.language.value,
         readOnly: true,
       };
+    },
+    onToggle(solution, index) {
+      if (solution.show = !solution.show) {
+        this.$nextTick(() => {
+          const {cm} = this.$refs.code[index];
+          cm && cm.refresh();
+        });
+      }
     },
   },
 };

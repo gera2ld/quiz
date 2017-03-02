@@ -30,7 +30,7 @@
           (<a href="https://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a>)
         </label>
         <div class="form-control-container">
-          <vue-code class="h-100" v-model="quiz.description" :options="{mode: 'markdown'}" v-show="!quiz.preview" />
+          <vue-code class="h-100" v-model="quiz.description" :options="descOptions" v-show="!quiz.preview" />
           <div class="form-control-preview h-100" v-html="quiz.descriptionHTML" v-show="quiz.preview"></div>
         </div>
       </div>
@@ -50,6 +50,11 @@ import VueCode from 'src/components/vue-code';
 import {loadItem, updateItem} from './utils';
 import {loadList as loadLanguageList} from '../language/utils';
 
+const descOptions = {
+  mode: 'markdown',
+  lineWrapping: true,
+};
+
 const converter = new showdown.Converter();
 
 export default {
@@ -60,6 +65,7 @@ export default {
   data() {
     return {
       store,
+      descOptions,
       quiz: {
         title: '',
         description: '',

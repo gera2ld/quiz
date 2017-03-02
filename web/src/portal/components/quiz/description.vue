@@ -51,9 +51,10 @@ export default {
   watch: {
     quiz: 'update',
     'code.language'(language) {
-      this.options = Object.assign({}, this.options, {
+      this.options = {
+        ...this.options,
         mode: language && language.value,
-      });
+      };
     },
   },
   created() {
