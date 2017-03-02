@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="jumbotron" v-if="!solutions.length">
+      <p>No submission yet.</p>
+      <router-link class="btn btn-primary" :to="`/quiz/${$route.params.id}`">Submit a solution</router-link>
+    </div>
     <div class="card mb-3" v-for="solution in solutions">
       <div class="card-header">
         Submitted at {{formatTime(solution.createdAt)}}
@@ -28,7 +32,7 @@ export default {
   created() {
     const {id} = this.$route.params;
     Me.Quiz.model(id).get('solutions').then(data => {
-      this.solutions = data;
+      this.solutions = data.reverse();
     });
   },
   methods: {
